@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-863=!$utizv&c$bu+j@p#l-%&kj-9aj_@ws#5r)e5wd30m==7c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = [
+    'bubbli-ecommerce-production.up.railway.app',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
