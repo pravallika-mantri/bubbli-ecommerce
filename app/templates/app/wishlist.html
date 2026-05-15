@@ -1,0 +1,41 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Wishlist{% endblock title %}
+
+{% block main-content %}
+
+<div class="container py-5">
+    <h2 class="fw-bold mb-4"style="color:#5a355c;">My Wishlist 💖</h2>
+    <div class="row">
+        {% for item in wishlist %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm h-100" style="border-radius:22px; background:#fffafb;">
+                <a href="{% url 'product-detail' item.product.id %}" class="text-decoration-none">
+                    <img src="{{ item.product.product_image.url }}"
+                         class="card-img-top p-3" style="height:260px; object-fit:cover; border-radius:28px;">
+                </a>
+                <div class="card-body text-center">
+                    <h5 class="fw-bold" style="color:#4b344f;">{{ item.product.title }}</h5>
+                    <h4 class="fw-bold mb-3" style="color:#ff5c8d;">₹ {{ item.product.discounted_price }}</h4>
+
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="{% url 'product-detail' item.product.id %}"
+                           class="btn text-white fw-semibold px-3"
+                           style="background:linear-gradient(135deg,#ba80d5,#d291ff); border-radius:12px;">View</a>
+                        <a href="{% url 'minuswishlist' %}?prod_id={{item.product.id}}"
+                           class="btn btn-outline-danger fw-semibold px-3" style="border-radius:12px;">Remove</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+
+        <div class="text-center py-5">
+            <h3 style="color:#b26fcf;">Your wishlist is empty 💔</h3>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock main-content %}

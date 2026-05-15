@@ -1,0 +1,78 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %} Update Address {% endblock title %}
+
+{% block main-content %}
+
+<div class="container py-5">
+    <div class="card border-0 shadow-lg p-4 p-lg-5" style=" border-radius:35px; background:linear-gradient(180deg,#fff7fc,#ffffff);">
+        <div class="row align-items-center mb-5">
+
+            <!-- LEFT TITLE -->
+
+            <div class="col-lg-8">
+                <h1 class="fw-bold mb-2" style="color:#b26fcf; font-family:Georgia;"> Update Address 📍 </h1>
+                <p class="text-muted fs-5 mb-0"> Edit your delivery information easily </p>
+            </div>
+
+            <!-- PROFILE SECTION -->
+
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <div class="d-inline-flex align-items-center gap-3 px-4 py-3 shadow-sm" style="background:#fffafb; border-radius:20px;">
+
+                    <div style=" width:65px; height:65px; border-radius:50%; background:linear-gradient(135deg,#ff7eb6,#ba80d5);
+                        display:flex; align-items:center; justify-content:center; color:white; font-size:28px; box-shadow:0 8px 18px rgba(186,128,213,0.30);">
+                        👤
+                    </div>
+                    <div class="text-start">
+                        <h5 class="fw-bold mb-1" style="color:#5a3d67;"> {{request.user}}
+                        </h5>
+                        <small class="text-muted"> Bubbli Member ✨</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORM CARD -->
+
+        <div class="card border-0 shadow-sm p-4 p-lg-5" style="border-radius:30px; background:#fffafb;">
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    {% for fm in form %}
+                    <div class="col-md-6 mb-4">
+                        <label class="form-label fw-bold mb-2" style=" color:#7a4d99; font-size:18px;"> {{fm.label}} </label>
+                        {{fm}}
+                        <small class="text-danger"> {{fm.errors|striptags}}  </small>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- BUTTONS -->
+
+                <div class="mt-4 d-flex flex-wrap gap-3">
+                    <button type="submit" class="btn text-white fw-bold px-5 py-3"
+                            style="background:linear-gradient(135deg,#ff7eb6,#ba80d5); border:none; border-radius:16px;
+                            box-shadow:0 8px 18px rgba(186,128,213,0.30);">
+                        Update Address
+                    </button>
+
+                    <a href="{% url 'address' %}" class="btn text-white fw-bold px-5 py-3"
+                       style="background:#f3e7f8; color:#7a4d99 !important; border-radius:16px; border:2px solid #edd6f5;">
+                       Back</a>
+                </div>
+
+                <!-- ERRORS -->
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger mt-4" style="border-radius:14px;"> {{error}} </div>
+                    {% endfor %}
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

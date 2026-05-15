@@ -1,0 +1,152 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} Buy Now {% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-danger">
+                {{ msg }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+
+        <!-- ORDER SUMMARY -->
+
+        <div class="col-lg-7 mb-4">
+            <div class="card border-0 shadow-sm p-4"
+                 style="border-radius:25px; background:#fffafb;">
+                <h3 class="fw-bold mb-4"
+                    style="color:#4b344f;">
+                    Order Summary 😋
+                </h3>
+                <hr>
+
+                {% for item in cart_items %}
+                <div class="card border-0 shadow-sm mb-3"
+                     style="border-radius:18px; background:#ffffff;">
+                    <div class="card-body">
+                        <h5 class="fw-bold" style="color:#b26fcf;">{{ item.product.title }}</h5>
+                        <p class="mb-2 text-muted">Quantity : {{ item.quantity }}</p>
+                        <p class="fw-bold" style="color:#ff5c8d;"> Price : ₹{{ item.product.discounted_price }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="mt-4">
+                    <h5 class="fw-bold" style="color:#4b344f;"> Total Cost + ₹25 Shipping</h5>
+                    <h4 class="fw-bold" style="color:#ff5c8d;">₹{{ totalamount }}</h4>
+                </div>
+
+                <small class="text-muted d-block mt-3">
+                    Terms & Conditions: Orders once placed cannot be cancelled after shipping.
+                </small>
+            </div>
+        </div>
+
+        <!-- SHIPPING ADDRESS -->
+
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-sm p-4" style="border-radius:25px; background:#fffafb;">
+                <h3 class="fw-bold mb-4" style="color:#4b344f;"> Select Shipping Address 📍</h3>
+                <hr>
+                <form action="{% url 'paymentdone' %}" method="get">
+                    {% for ad in add %}
+                    <div class="card mb-3 border-0 shadow-sm" style="border-radius:20px; background:#fffafb;">
+                        <div class="card-body">
+
+                            <!-- ADDRESS TOP -->
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="fw-bold mb-0" style="color:#b26fcf;">{{ ad.name }}</h5>
+                            </div>
+                            <p class="mb-1">{{ ad.locality }}</p>
+                            <p class="mb-1">{{ ad.city }}</p>
+                            <p class="mb-1">{{ ad.state }} - {{ ad.pincode }}</p>
+                            <p class="mb-3">📞 {{ ad.mobile }}</p>
+
+                            <!-- RADIO -->
+
+                            <div class="cute-radio">
+                                <input type="radio" name="custid" id="cust{{ ad.id }}" value="{{ ad.id }}" required>
+                                <label for="cust{{ ad.id }}">
+                                    <span class="radio-circle"></span>
+                                    <span class="fw-bold"> Deliver Here</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- BUTTON -->
+
+                    <button type="submit" class="btn text-white fw-bold px-5 py-3 mt-3"
+                            style=" background:linear-gradient(135deg,#ff7eb6,#ba80d5); border:none; border-radius:16px; box-shadow:0 6px 20px rgba(186,128,213,0.35);">
+                        Continue Payment ✨
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS -->
+
+<style>
+
+.cute-radio input[type="radio"]{
+    opacity:0;
+    position:absolute;
+}
+
+.cute-radio label{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+    font-size:20px;
+    color:#5a3d67;
+    margin-bottom:12px;
+}
+
+.radio-circle{
+    width:24px;
+    height:24px;
+    border:3px solid #d9b3f0;
+    border-radius:50%;
+    position:relative;
+    transition:0.3s ease;
+    background:white;
+}
+
+.cute-radio input[type="radio"]:checked + label .radio-circle{
+    border-color:#ba80d5;
+    background:linear-gradient(135deg,#ff7eb6,#ba80d5);
+    box-shadow:0 0 12px rgba(186,128,213,0.35);
+}
+
+.cute-radio input[type="radio"]:checked + label .radio-circle::after{
+    content:'';
+    width:10px;
+    height:10px;
+    background:white;
+    border-radius:50%;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+.cute-radio label:hover{
+    color:#b26fcf;
+}
+
+</style>
+
+{% endblock main-content %}

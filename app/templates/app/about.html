@@ -1,0 +1,184 @@
+{% extends "app/base.html" %} 
+{% load static %} 
+{% block title %} About {%endblock title %} 
+
+{% block banner-slider %}
+
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'app/images/banner/b1.png' %}" class="d-block w-100" alt="banner">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/b2.png' %}" class="d-block w-100" alt="banner">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/b3.png' %}" class="d-block w-100" alt="banner">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/b4.png' %}" class="d-block w-100" alt="banner">
+    </div>
+  </div>
+    <!-- Scroll Down Indicator -->
+    <div class="text-center scroll-down">
+        <a href="#maincontent" class="text-decoration-none">
+            <div class="mouse"></div>
+            <p class="mt-2">Scroll Down</p>
+            <div class="arrow">⌄</div>
+        </a>
+    </div>
+</div>
+
+{% endblock banner-slider %}
+
+{% block main-content %}
+
+<div class="container py-5">
+
+    <!-- About Card -->
+    <div class="card border-0 shadow-lg p-5 mb-5" 
+         style="background: linear-gradient(to bottom, #fff7fb, #ffffff); border-radius: 30px;">
+
+        <h1 class="text-center fw-bold mb-4" style="color:#b26fcf;">
+            💖 About Us
+        </h1>
+
+        <p class="lead text-center text-muted lh-lg">
+            Welcome to Bubbli — where desserts are made to look dreamy, 
+            taste unforgettable, and bring happiness in every bite.
+            <br>
+            At Bubbli, we believe desserts should feel magical. From glossy mousse cakes 
+            and creamy cheesecakes to soft cupcakes, chewy mochi donuts, buttery croffles, 
+            pudding jars, and refreshing boba milk teas — every creation is crafted with 
+            premium ingredients, playful flavors, and aesthetic presentation.
+        </p>
+
+    </div>
+
+    <!-- Mission Card -->
+    <div class="card border-0 shadow-lg p-5 mb-5" 
+         style="background: linear-gradient(to bottom, #fffaf5, #ffffff); border-radius: 30px;">
+
+        <h1 class="text-center fw-bold mb-4" style="color:#ff6fa5;">
+            ✨ Our Mission
+        </h1>
+
+        <p class="lead text-center text-muted lh-lg">
+            At Bubbli, our mission is to create desserts and drinks that bring happiness, 
+            comfort, and excitement to every customer.
+            <br>
+            We aim to combine premium quality ingredients, creative flavors, and beautiful 
+            presentation to make every treat feel special. We are dedicated to building a 
+            fun and welcoming dessert experience inspired by modern Korean and Japanese café culture — 
+            where every sip, bite, and sweet moment becomes a memory worth sharing.
+        </p>
+
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="row text-center mt-5">
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:25px;">
+                <h1 style="color:#ff85b3;">40+</h1>
+                <h5>Dreamy Desserts</h5>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:25px;">
+                <h1 style="color:#b26fcf;">1000+</h1>
+                <h5>Happy Customers</h5>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card border-0 shadow-sm p-4 h-100" style="border-radius:25px;">
+                <h1 style="color:#ffb347;">100%</h1>
+                <h5>Made With Love</h5>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+.card{
+    transition: 0.4s ease;
+}
+
+.card:hover{
+    transform: translateY(-8px);
+}
+
+  .scroll-down{
+    position: relative;
+    margin-top: -70px;
+    z-index: 10;
+    animation: bounce 2s infinite;
+}
+
+.scroll-down p{
+    color: white;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.4);
+}
+
+.arrow{
+    color: white;
+    font-size: 35px;
+    line-height: 10px;
+    text-shadow: 0px 2px 10px rgba(0,0,0,0.4);
+}
+
+.mouse{
+    width: 28px;
+    height: 45px;
+    border: 2px solid white;
+    border-radius: 20px;
+    margin: auto;
+    position: relative;
+}
+
+.mouse::before{
+    content: '';
+    width: 4px;
+    height: 10px;
+    background: white;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    animation: scroll 1.5s infinite;
+}
+
+@keyframes scroll{
+    0%{
+        opacity: 1;
+        top: 8px;
+    }
+    100%{
+        opacity: 0;
+        top: 20px;
+    }
+}
+
+@keyframes bounce{
+    0%,20%,50%,80%,100%{
+        transform: translateY(0);
+    }
+    40%{
+        transform: translateY(-10px);
+    }
+    60%{
+        transform: translateY(-5px);
+    }
+}
+
+</style>
+
+{% endblock main-content %}

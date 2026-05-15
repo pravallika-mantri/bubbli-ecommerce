@@ -1,0 +1,175 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %} Product Details {% endblock title %}
+
+{% block main-content %}
+
+<br><br>
+<div class="container py-4">
+    <div class="card border-0 shadow-sm p-3 p-lg-4"
+         style="border-radius:25px; background:#fffafb;">
+        <div class="row align-items-center g-4">
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="col-lg-5 text-center gx-5">
+                <img src="{{product.product_image.url}}" class="img-fluid product-image shadow-sm"
+                     style="border-radius:22px; max-height:520px; object-fit:cover;"alt="product">
+            </div>
+
+
+            <!-- PRODUCT DETAILS -->
+
+            <div class="col-lg-7">
+
+                <!-- TITLE -->
+
+                <h1 class="fw-bold mb-2" style="font-family:Georgia; font-size:42px; color:#4b344f;"> {{product.title}} </h1>
+
+                <!-- PRICE -->
+
+                <div class="mb-3">
+                    <span class="fw-bold" style="color:#ff5c8d; font-size:42px;"> ₹ {{product.discounted_price}}/- </span>
+                    <br>
+                    <span class="text-decoration-line-through text-muted" style="font-size:28px;">₹ {{product.selling_price}}/-</span>
+                </div>
+
+                <!-- FEATURES -->
+
+                    <h4 class="fw-bold mb-3 m-3" style="color:#b26fcf;"> Product Features</h4>
+                    <ul class="lh-lg mb-0" style="font-size:18px; color:#555;">
+                        <li>{{product.description}}</li>
+                        <li>{{product.prodapp}}</li>
+                        <li>{{product.composition}}</li>
+                    </ul>
+                    
+                <!-- BUTTONS -->
+
+                <div class="d-flex align-items-center gap-3 flex-wrap mt-5 m-5">
+                 
+                    <!-- ADD TO CART -->
+
+                    <form action="/add-to-cart" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{product.id}}" />
+                        <button type="submit" class="cute-btn cart-btn">Add To Cart </button>
+                    </form>
+
+                    <!-- BUY NOW -->
+
+                    <a href="{% url 'showcart' %}" class="cute-btn buy-btn text-decoration-none">Buy Now</a>
+
+                    <!-- Wishlist -->
+                     {% if request.user.is_authenticated %}
+                        {% if wishlist %}
+                            <a href="{% url 'minuswishlist' %}?prod_id={{product.id}}" class="wishlist-btn active">
+                                <i class="fa-solid fa-heart"></i></a>
+                        {% else %}
+                            <a href="{% url 'pluswishlist' %}?prod_id={{product.id}}" class="wishlist-btn">
+                                <i class="fa-regular fa-heart"></i>
+                            </a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'login' %}" class="wishlist-btn"><i class="fa-regular fa-heart"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS -->
+ 
+<style>
+
+.product-image{
+    transition:0.3s ease;
+}
+
+.product-image:hover{
+    transform:scale(1.02);
+}
+
+.btn{
+    transition:0.3s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+
+.product-image{
+    transition:0.35s ease;
+}
+
+.product-image:hover{
+    transform:scale(1.02);
+}
+
+/* WISHLIST */
+
+.wishlist-btn{
+    width:68px;
+    height:68px;
+    border-radius:22px;
+    background:linear-gradient(135deg,#ff7eb6,#ff8dc5);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:white;
+    font-size:28px;
+    transition:0.35s ease;
+    border:none;
+    box-shadow:0 10px 24px rgba(255,95,162,0.22);
+}
+
+.wishlist-btn:hover{
+    transform:translateY(-4px) scale(1.04);
+    color:white;
+}
+
+.wishlist-btn.active{
+    background:linear-gradient(135deg,#ff5fa2,#ff7eb6);
+}
+
+/* COMMON BUTTON */
+
+.cute-btn{
+    height:68px;
+    padding:0 38px;
+    border:none;
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    font-weight:700;
+    color:white;
+    transition:0.35s ease;
+    box-shadow:0 10px 24px rgba(186,128,213,0.18);
+}
+
+/* ADD TO CART */
+
+.cart-btn{
+    background:linear-gradient(135deg,#ba80d5,#d291ff);
+}
+
+/* BUY NOW */
+
+.buy-btn{
+    background:linear-gradient(135deg,#ff6cab,#ff8e53);
+}
+
+/* HOVER */
+
+.cute-btn:hover{
+    transform:translateY(-4px);
+    color:white;
+}
+
+</style>
+
+{% endblock main-content %}

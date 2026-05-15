@@ -1,0 +1,103 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% block title %} Category {% endblock title %}
+
+{% block main-content %}
+
+<div class="container py-5">
+    <div class="row">
+        <!-- LEFT SIDEBAR -->
+
+        <div class="col-lg-3 mb-4">
+
+            <div class="card border-0 shadow-sm p-4" style="border-radius:30px; background:#fffafb;">
+                <h4 class="fw-bold text-center mb-4" style="color:#b26fcf;">Categories ✨</h4>
+
+                <div class="d-grid gap-3">
+                    <a href="{% url 'category' products.0.category %}" class="btn text-white fw-semibold py-3"
+                        style="background:linear-gradient(135deg,#ff7eb6,#ba80d5); border-radius:18px;">All Flavors ✨</a>
+
+                    {% for val in title %}
+
+                    <a href="{% url 'category-title' val.title %}" class="btn fw-semibold py-3"
+                       style="background:#fff0f8; color:#b26fcf; border-radius:18px; border:2px solid #f6d9ec;">
+                        {{val.title}}</a>
+
+                    {% endfor %}
+
+                    <a href="{% url 'products' %}" class="btn  text-white fw-semibold py-3"
+                    style="background:linear-gradient(135deg,#ff7eb6,#ba80d5); border-radius:18px;">
+                        ← Back To Products</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTS -->
+
+        <div class="col-lg-9">
+            <div class="row">
+                {% for prod in products %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm h-100 p-3 product-card" style="border-radius:30px; background:#fffafb;">
+
+                        <!-- PRODUCT IMAGE -->
+
+                        <a href="{% url 'product-detail' prod.id %}" class="text-decoration-none text-center">
+                            <img src="{{prod.product_image.url}}" class="img-fluid"
+                                 style="height:260px; width:100%; object-fit:cover; border-radius:22px;"></a>
+
+                        <!-- PRODUCT DETAILS -->
+
+                        <div class="card-body text-center">
+
+                            <h4 class="fw-bold mt-3 mb-2" style="color:#5a3d67;">{{prod.title}}</h4>
+
+                            <div class="mb-3">
+                                <span class="fw-bold fs-4" style="color:#ff6fa9;"> ₹{{prod.discounted_price}}</span><br>
+                                <small class="text-muted text-decoration-line-through fs-6">₹{{prod.selling_price}}</small>
+                            </div>
+
+                            <a href="{% url 'product-detail' prod.id %}" class="btn text-white fw-semibold px-4 py-2"
+                               style="background:linear-gradient(135deg,#ff7eb6,#ba80d5); border-radius:14px;">
+                                View Product</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- STYLING -->
+
+<style>
+
+.product-card{
+    transition:0.35s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 35px rgba(186,128,213,0.18) !important;
+}
+
+.product-card img{
+    transition:0.35s ease;
+}
+
+.product-card:hover img{
+    transform:scale(1.03);
+}
+
+.btn{
+    transition:0.3s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+</style>
+
+{% endblock main-content %}

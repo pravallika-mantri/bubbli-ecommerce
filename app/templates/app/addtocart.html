@@ -1,0 +1,114 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %} Cart {% endblock title %}
+
+{% block main-content %}
+
+<div class="container my-5">
+    {% if cart %}
+    <h1 class="text-center fw-bold mb-5"
+        style="color:#b26fcf;">
+        Shopping Cart 🛒
+    </h1>
+    <div class="row">
+
+        <!-- CART ITEMS -->
+
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm p-4"
+                 style="border-radius:25px; background:#fffafb;">
+                <h3 class="fw-bold mb-4" style="color:#4b344f;">
+                    Your Cart
+                </h3>
+                {% for item in cart %}
+                <div class="cart-item">
+                <div class="row align-items-center">
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="col-sm-3 text-center">
+                        <img src="{{ item.product.product_image.url }}" alt=""
+                             class="img-fluid img-thumbnail shadow-sm"
+                             style="height:140px; width:140px; object-fit:cover; border-radius:20px;">
+                    </div>
+
+                    <!-- PRODUCT DETAILS -->
+
+                    <div class="col-sm-9">
+                        <h5 class="fw-bold"> {{ item.product.title }} </h5>
+                        <p class="text-muted small mb-2">   {{ item.product.description }} </p>
+
+                        <!-- QUANTITY -->
+
+                        <div class="my-3 d-flex align-items-center gap-2">
+                            <label class="fw-semibold" for="quantity"> Quantity: </label>
+                            <a class="minus-cart btn btn-sm text-white"
+                               pid="{{ item.product.id }}" style="background:#ba80d5; border-radius:8px;">
+                                <i class="fas fa-minus"></i>
+                            </a>
+                            <span id="quantity"  class="fw-bold"> {{ item.quantity }} </span>
+                            <a class="plus-cart btn btn-sm text-white"
+                               pid="{{ item.product.id }}" style="background:#ff6fa9; border-radius:8px;">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+
+                        <!-- PRICE + REMOVE -->
+
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <a href="#"  class="remove-cart btn btn-sm btn-outline-danger" pid="{{ item.product.id }}">
+                                Remove Item
+                            </a>
+                            <p class="mb-0 fw-bold" style="color:#ff5c8d;">
+                                ₹{{ item.product.discounted_price }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-4">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- TOTAL AMOUNT -->
+
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="card border-0 shadow-sm p-4"
+                 style="border-radius:25px; background:#fffafb;">
+                <h3 class="fw-bold mb-4" style="color:#4b344f;"> Price Summary </h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between px-0">Amount
+                        <span id="amount"> ₹{{ amount }} </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between px-0">Shipping
+                        <span> ₹25.00 </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between px-0 fw-bold">
+                    <div>
+                        <storng>Total</strong> <small class="text-muted">{including GST}</small>
+                    </div>
+                        <span id="totalamount" style="color:#ff5c8d;"> ₹{{ totalamount }}</span>
+                    </li>
+                </ul>
+
+                <!-- PLACE ORDER BUTTON -->
+
+                <div class="d-grid mt-4">
+                    <a href="{% url 'checkout' %}" class="btn text-white fw-bold py-2"
+                       style="background:linear-gradient(135deg,#ff7eb6,#ba80d5);  border-radius:12px;">
+                        Place Order
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center my-5">
+        <h2 class="fw-bold" style="color:#b26fcf;"> Your Cart is Empty 🛍️ </h2>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock main-content %}

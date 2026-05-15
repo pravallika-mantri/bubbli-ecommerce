@@ -1,0 +1,98 @@
+{% extends "app/base.html" %} {% load static %} {% block title %} My Orders {%
+endblock title %} {% block main-content %}
+
+<div class="container py-5">
+  <divclass="card border-0 shadow-lg p-4"
+    style="border-radius: 30px; background: linear-gradient(to bottom, #fff8fc, #ffffff);">
+    <!-- HEADING -->
+
+    <div class="text-center mb-5">
+      <h1 class="fw-bold" style="color: #b26fcf; font-family: Georgia">
+        My Orders ✨
+      </h1>
+
+      <p class="text-muted fs-5">Track your delicious Bubbli treats 💕</p>
+    </div>
+
+    <!-- ORDERS -->
+
+    <div class="row">
+      {% for order in order_placed %}
+
+      <div class="col-lg-6 mb-4">
+        <div class="card border-0 shadow-sm h-100 p-3" style="border-radius: 25px; background: #fffafb">
+          <div class="row align-items-center">
+            <!-- PRODUCT IMAGE -->
+
+            <div class="col-4">
+              <img src="{{ order.product.product_image.url }}" class="img-fluid"
+                style="border-radius: 20px; height: 160px; object-fit: cover"/>
+            </div>
+
+            <!-- DETAILS -->
+
+            <div class="col-8">
+              <h4 class="fw-bold mb-2" style="color: #5a3d67">
+                {{ order.product.title }}
+              </h4>
+
+              <p class="mb-1">
+                Quantity :
+                <span class="fw-bold"> {{ order.quantity }} </span>
+              </p>
+
+              <p class="mb-1">
+                Price :
+                <span class="fw-bold text-danger">
+                  ₹{{ order.total_cost }}
+                </span>
+              </p>
+
+              <p class="mb-1">
+                Ordered On :
+                <span class="fw-semibold"> {{ order.ordered_date }} </span>
+              </p>
+
+              <!-- STATUS -->
+
+              <div class="mt-3 d-flex align-items-center gap-3 flex-wrap">
+                <!-- STATUS -->
+
+                <span class="badge px-3 py-2"
+                  style="background: linear-gradient(135deg, #ff7eb6, #ba80d5); border-radius: 12px; font-size: 14px;">
+                  {{ order.status }}
+                </span>
+
+                <!-- CANCEL BUTTON -->
+
+                <a href="{% url 'cancelorder' order.id %}" class="btn btn-sm text-white fw-semibold px-3 py-2"
+                  style=" background: linear-gradient(135deg, #ff6b81, #ff4757); border: none; border-radius: 12px; box-shadow: 0 4px 12px rgba(255, 71, 87, 0.25);">
+                  Cancel Order
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+
+      <div class="text-center py-5">
+        <img src="{% static 'app/images/empty-cart.png' %}" width="180" />
+
+        <h3 class="mt-4 fw-bold" style="color: #b26fcf">No Orders Yet 🛍️</h3>
+
+        <p class="text-muted">Your yummy orders will appear here.</p>
+
+        <a href="{% url 'products' %}" class="btn text-white fw-bold px-4 py-2 mt-2"
+          style="background: linear-gradient(135deg, #ff7eb6, #ba80d5); border-radius: 14px;">
+          Shop Now
+        </a>
+      </div>
+
+      {% endfor %}
+    </div>
+  </divclass=>
+</div>
+
+{% endblock main-content %}

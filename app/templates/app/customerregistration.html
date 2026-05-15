@@ -1,0 +1,127 @@
+{% extends "app/base.html" %} 
+{% load static %} 
+{% block title %} Register {%endblock title %} 
+
+{% block main-content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card border-0 shadow-lg p-5" style="border-radius:25px; background:linear-gradient(to bottom,#fff8fc,#ffffff);">
+                <h2 class="text-center fw-bold mb-4" style="color:#b26fcf; font-family:Georgia;">
+                    Create Account ✨
+                </h2>
+                <hr class="mb-5">
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {% for fm in form %}
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold fs-5">
+                                {{fm.label}}
+                            </label>
+                            <div class="position-relative">
+                                {{fm}}
+                                {% if 'password' in fm.name %}
+                                    <span class="toggle-password">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <small class="text-danger"> {{fm.errors|striptags}}</small>
+                        </div>
+                    {% endfor %}
+
+                    <div class="d-grid mt-4">
+                        <input type="submit" value="Register Now" class="btn text-white fw-semibold py-2" style="background:linear-gradient(135deg,#ff7eb6,#ba80d5);
+                               border:none; border-radius:12px; font-size:18px;">
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <small class="fw-semibold" style="color:#b26fcf;">Already have an account?
+                            <a href="{% url 'login' %}" class="text-decoration-none fw-bold" style="color:#ff5fa2;">
+                               Login Now</a>
+                        </small>
+                    </div>
+                    {% if form.non_field_errors %}
+                        {% for error in form.non_field_errors %}
+                            <p class="alert alert-danger my-3">
+                                {{error}}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                    {% if messages %}
+                        {% for msg in messages %}
+                            <p class="alert alert-{{msg.tags}} my-3" role="alert">
+                                {{msg}}
+                            </p>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CSS -->
+
+<style>
+
+.position-relative input{
+
+    padding-right:50px;
+
+}
+
+.toggle-password{
+
+    position:absolute;
+    top:50%;
+    right:15px;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#b26fcf;
+    font-size:20px;
+    z-index:10;
+}
+
+.toggle-password:hover{
+
+    color:#ff5fa2;
+
+}
+
+</style>
+
+<script>
+
+document.querySelectorAll('.toggle-password').forEach(function(icon){
+
+    icon.addEventListener('click', function(){
+
+        const input = this.previousElementSibling;
+
+        if(input.type === "password"){
+
+            input.type = "text";
+
+            this.innerHTML =
+            '<i class="bi bi-eye-slash-fill"></i>';
+
+        }
+
+        else{
+
+            input.type = "password";
+
+            this.innerHTML =
+            '<i class="bi bi-eye-fill"></i>';
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock main-content %}

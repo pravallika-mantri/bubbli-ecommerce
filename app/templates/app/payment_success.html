@@ -1,0 +1,47 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %} Payment Success {% endblock title %}
+
+{% block main-content %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-lg text-center p-5" style="border-radius:35px; background:linear-gradient(to bottom,#fff8fc,#ffffff);">
+
+                <!-- SUCCESS ICON -->
+
+                <div class="mb-4">
+                    <div style="width:120px; height:120px; margin:auto; border-radius:50%; background:linear-gradient(135deg,#ff7eb6,#ba80d5); display:flex;
+                        align-items:center; justify-content:center; font-size:55px; color:white; box-shadow:0 10px 30px rgba(186,128,213,0.35);"> 
+                        ✓
+                    </div>
+                </div>
+
+                <!-- TEXT -->
+
+                <h1 class="fw-bold mb-3" style=" color:#b26fcf; font-family:Georgia;"> Payment Successful ✨</h1>
+                <p class="text-muted fs-5 mb-4"> Your sweet Bubbli order has been placed successfully 💕</p>
+
+                <!-- ORDER DETAILS -->
+
+                <div class="card border-0 shadow-sm p-4 mb-4" style="border-radius:25px; background:#fffafb;">
+                    <h5 class="fw-bold mb-3" style="color:#5a3d67;"> Order Details</h5>
+                    <p class="mb-2"> Payment Status :<span class="fw-bold text-success">Completed </span></p>
+                    <p class="mb-2"> Shipping : <span class="fw-bold"> ₹25</span> </p>
+                    <p class="mb-0">Thank you for shopping with Bubbli 🧋 </p>
+                </div>
+
+                <!-- BUTTON -->
+
+                <a href="{% url 'orders' %}" class="btn text-white fw-bold px-5 py-3"
+                   style="background:linear-gradient(135deg,#ff7eb6,#ba80d5); border:none; border-radius:16px; box-shadow:0 6px 20px rgba(186,128,213,0.35);">
+                    View My Orders 💖
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock main-content %}

@@ -1,0 +1,97 @@
+{% extends "app/base.html" %}
+{% load static %}
+
+{% block title %} Products {% endblock title %}
+
+{% block main-content %}
+
+<div class="container py-5">
+
+    <!-- PAGE HEADING -->
+
+    <div class="text-center mb-5">
+
+        <h1 class="fw-bold" style="color:#b26fcf; font-family:Georgia; font-size:55px;"> Our Products 🍓</h1>
+
+        <p class="text-muted fs-5"> Explore cute desserts & dreamy bubble tea </p>
+
+    </div>
+
+    <!-- CATEGORY BUTTONS -->
+
+    <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+        <a href="{% url 'products' %}" class="category-btn active-category"> All Products </a>
+        <a href="{% url 'category' 'BT' %}" class="category-btn">Bubble Tea 🧋</a>
+        <a href="{% url 'category' 'CR' %}" class="category-btn"> Croffles 🥐 </a>
+        <a href="{% url 'category' 'BW' %}" class="category-btn">Bubble Waffles 🧇</a>
+        <a href="{% url 'category' 'MD' %}" class="category-btn"> Mochi Donuts 🍩</a>
+        <a href="{% url 'category' 'CH' %}" class="category-btn">Cheese Cakes 🍰 </a>
+        <a href="{% url 'category' 'MC' %}" class="category-btn"> Mousse Cakes 🎂 </a>
+        <a href="{% url 'category' 'CC' %}" class="category-btn">Cup Cakes 🧁</a>
+        <a href="{% url 'category' 'PJ' %}" class="category-btn"> Pudding Jars 🍮 </a>
+    </div>
+
+    <!-- PRODUCTS -->
+
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm h-100 p-3" style=" border-radius:28px; background:#fffafb; transition:0.3s;">
+
+                <!-- PRODUCT IMAGE -->
+
+                <a href="{% url 'product-detail' product.id %}" class="text-center">
+                    <img src="{{ product.product_image.url }}" class="img-fluid"
+                         style="height:230px; object-fit:cover; border-radius:20px;"></a>
+
+                <!-- PRODUCT DETAILS -->
+
+                <div class="card-body text-center">
+
+                    <h4 class="fw-bold mt-3" style="color:#5a3d67;">{{ product.title }}</h4>
+
+                    <p class="fw-bold fs-4" style="color:#ff6fa9;">₹{{ product.discounted_price }}</p>
+
+                    <a href="{% url 'product-detail' product.id %}" class="btn text-white fw-semibold px-4 py-2"
+                       style="background:linear-gradient(135deg,#ff7eb6,#ba80d5); border-radius:14px;">View Product</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- CSS -->
+ 
+<style>
+
+.category-btn{
+    text-decoration:none;
+    padding:14px 28px;
+    border-radius:50px;
+    background:#fff7fb;
+    color:#a25ccf;
+    font-weight:700;
+    font-size:17px;
+    border:2px solid #f6dff2;
+    transition:0.35s ease;
+    box-shadow:0 4px 12px rgba(186,128,213,0.10);
+}
+
+.category-btn:hover{
+    background:linear-gradient(135deg,#ff7eb6,#ba80d5);
+    color:white;
+    transform:translateY(-4px);
+    box-shadow:0 10px 22px rgba(186,128,213,0.28);
+}
+
+.active-category{
+    background:linear-gradient(135deg,#ff7eb6,#ba80d5);
+    color:white;
+    border:none;
+    box-shadow:0 10px 22px rgba(186,128,213,0.28);
+}
+
+</style>
+
+{% endblock main-content %}
