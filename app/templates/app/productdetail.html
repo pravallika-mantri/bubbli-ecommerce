@@ -57,7 +57,8 @@
 
                     <!-- BUY NOW -->
 
-                    <a href="{% url 'showcart' %}" class="cute-btn buy-btn text-decoration-none">Buy Now</a>
+                    <a href="{% url 'add-to-cart' %}?prod_id={{product.id}}"class="cute-btn buy-btn text-decoration-none">
+                         Buy Now</a>
 
                     <!-- Wishlist -->
                      {% if request.user.is_authenticated %}
