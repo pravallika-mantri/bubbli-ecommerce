@@ -32,6 +32,10 @@ ALLOWED_HOSTS = [
     'localhost'
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://bubbli-ecommerce-production.up.railway.app',
+]
+
 
 # Application definition
 
