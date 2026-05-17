@@ -13,7 +13,6 @@ from .models import Customer, Product, Cart, Wishlist
 from .form import CustomerProfileForm, CustomerRegistrationForm
 from .models import Payment, OrderPlaced
 
-@login_required
 def home(request):
     totalitem = 0
     wishitem = 0
